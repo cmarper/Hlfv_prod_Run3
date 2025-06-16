@@ -41,13 +41,13 @@ echo "Done."
 # Create configuration
 echo "==> Creating LHEGS configuration file..."
 mkdir -p Configuration/GenProduction/python/
-cp ../../Hlfv_prod_Run3/fragments/fragment-VBFHiggsTauMu.py Configuration/GenProduction/python/Run3Summer22EELHEGS-VBFHiggsToTauMu-fragment.py
+cp ../../../fragments/fragment-VBFHiggsTauMu.py Configuration/GenProduction/python/Run3Summer22EELHEGS-VBFHiggsToTauMu-fragment.py
 cmsDriver.py Configuration/GenProduction/python/Run3Summer22EELHEGS-VBFHiggsToTauMu-fragment.py --eventcontent RAWSIM,LHE --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM,LHE --conditions 124X_mcRun3_2022_realistic_postEE_v1 --beamspot Realistic25ns13p6TeVEarly2022Collision --customise_commands process.RandomNumberGeneratorService.externalLHEProducer.initialSeed="12345" --step LHE,GEN,SIM --geometry DB:Extended --era Run3 --python_filename Run3Summer22EEwmLHEGS-VBFHiggsToTauMu_cfg.py --fileout file:Run3Summer22EEwmLHEGS-VBFHiggsToTauMu.root --number $nevents --number_out $nevents --no_exec --mc
 echo "Done."
 
 # Run production
 echo "==> Running LHEGS production..."
-cmsRun ../../configs/Hlfv_prod_Run3/Run3Summer22EEwmLHEGS-VBFHiggsToTauMu_cfg.py
+cmsRun ../../../configs/Run3Summer22EEwmLHEGS-VBFHiggsToTauMu_cfg.py
 echo "Done."
 
 ##########################
@@ -63,7 +63,7 @@ echo "Done."
 
 # Run production
 echo "==> Running PREMIX (DIGI) production..."
-cmsRun ../../configs/Hlfv_prod_Run3/Run3Summer22EEDR-VBFHiggsToTauMu_1_cfg.py
+cmsRun ../../../configs/Run3Summer22EEDR-VBFHiggsToTauMu_1_cfg.py
 echo "Done."
 
 # Create configuration
@@ -73,7 +73,7 @@ echo "Done."
 
 # Run production
 echo "==> Running PREMIX (RECO) production..."
-cmsRun ../../configs/Hlfv_prod_Run3/Run3Summer22EEDR-VBFHiggsToTauMu_2_cfg.py
+cmsRun ../../../configs/Run3Summer22EEDR-VBFHiggsToTauMu_2_cfg.py
 echo "Done."
 
 ###########################
@@ -95,7 +95,7 @@ echo "Done."
 
 # Run production
 echo "==> Running MiniAOD production..."
-cmsRun ../../configs/Hlfv_prod_Run3/Run3Summer22EEMiniAODv4-VBFHiggsToTauMu_cfg.py 
+cmsRun ../../../configs/Run3Summer22EEMiniAODv4-VBFHiggsToTauMu_cfg.py 
 echo "Done."
 
 ###########################
@@ -109,7 +109,7 @@ echo "Done."
 
 # Run production
 echo "==> Running NanoAOD production..."
-cmsRun ../../configs/Hlfv_prod_Run3/Run3Summer22EENanoAODv12-VBFHiggsToTauMu_cfg.py
+cmsRun ../../../configs/Run3Summer22EENanoAODv12-VBFHiggsToTauMu_cfg.py
 echo "Done."
 
 cd ../../
