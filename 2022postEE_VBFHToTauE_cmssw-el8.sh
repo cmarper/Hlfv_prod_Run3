@@ -13,16 +13,6 @@ echo "==> Initializing CMS VOMS proxy..."
 voms-proxy-init --voms cms
 echo "Done."
 
-# Download repo with config files
-echo "==> Downloading Hlfv_prod_Run3 repository with config files..."
-if [ -d "Hlfv_prod_Run3" ]; then
-  echo "Repository already exists. Skipping download."
-else
-  echo "Cloning repository via SSH..."
-  git clone git@github.com:cmarper/Hlfv_prod_Run3.git
-fi
-echo "Done."
-
 # Create and move into the working directory
 echo "==> Creating and moving into working directory 2022postEE_VBFHToTauE..."
 mkdir -p 2022postEE_VBFHToTauE
