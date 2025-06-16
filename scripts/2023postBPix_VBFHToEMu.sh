@@ -4,14 +4,21 @@
 set -e
 
 # Settings
-#nevents=1000000
-fragmentfile=https://cernbox.cern.ch/s/Xq3BkiuY5cpjKZn/download
-pileupfile="dbs:/Neutrino_E-10_gun/Run3Summer21PrePremix-Summer23_130X_mcRun3_2023_realistic_v13-v1/PREMIX"
-#pileupfile="filelist:fileslist_Neutrino_E-10_gun.txt"
+nevents=1000000
 
 # Initialize CMS VOMS proxy
 echo "==> Initializing CMS VOMS proxy..."
 voms-proxy-init --voms cms
+echo "Done."
+
+# Download repo with config files
+echo "==> Downloading Hlfv_prod_Run3 repository with config files..."
+if [ -d "Hlfv_prod_Run3" ]; then
+  echo "Repository already exists. Skipping download."
+else
+  echo "Cloning repository via SSH..."
+  git clone git@github.com:cmarper/Hlfv_prod_Run3.git
+fi
 echo "Done."
 
 # Create and move into the working directory
@@ -20,23 +27,11 @@ mkdir -p 2023postBPix_VBFHToEMu
 cd 2023postBPix_VBFHToEMu || exit
 echo "Done."
 
-# Download config files
-echo "==> Downloading config files..."
-curl -L -o configs_2023postBPix_VBFHToEMu.zip https://cernbox.cern.ch/s/0KqLQ3rjoWryTCQ/download
-unzip configs_2023postBPix_VBFHToEMu.zip -d .
-mv 2023postBPix_VBFHToEMu/ configs/
-echo "Done."
-
 # Setup CMSSW environment
 echo "==> Setting up CMSSW_13_0_17..."
 cmsrel CMSSW_13_0_17
 cd CMSSW_13_0_17/src
 cmsenv
-echo "Done."
-
-# Download fragment
-echo "==> Downloading fragment..."
-curl -s -k --retry 3 --create-dirs -o Configuration/GenProduction/python/Run3Summer23BPixLHEGS-VBFHiggsToEMu-fragment.py $fragmentfile
 echo "Done."
 
 # Build CMSSW
@@ -51,12 +46,14 @@ echo "Done."
 
 # Create configuration
 #echo "==> Creating LHEGS configuration file..."
+mkdir Configuration/GenProduction/python/
+cp ../../Hlfv_prod_Run3/fragments/fragment-VBFHiggsEMu.py Configuration/GenProduction/python/Run3Summer23BPixLHEGS-VBFHiggsToEMu-fragment.py
 cmsDriver.py Configuration/GenProduction/python/Run3Summer23BPixLHEGS-VBFHiggsToEMu-fragment.py --eventcontent RAWSIM,LHE --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM,LHE --conditions 130X_mcRun3_2023_realistic_postBPix_v6 --beamspot Realistic25ns13p6TeVEarly2023Collision --customise_commands process.RandomNumberGeneratorService.externalLHEProducer.initialSeed="12345" --step LHE,GEN,SIM --geometry DB:Extended --era Run3_2023 --python_filename Run3Summer23BPixwmLHEGS-VBFHiggsToEMu_cfg.py --fileout file:Run3Summer23BPixwmLHEGS-VBFHiggsToEMu.root --number $nevents --number_out $nevents --no_exec --mc
 #echo "Done."
 
 # Run production
 echo "==> Running LHEGS production..."
-#cmsRun ../../configs/Run3Summer23BPixwmLHEGS-VBFHiggsToEMu_cfg.py
+#cmsRun ../../configs/Hlfv_prod_Run3/Run3Summer23BPixwmLHEGS-VBFHiggsToEMu_cfg.py
 echo "Done."
 
 cd ../../
@@ -72,19 +69,15 @@ cd CMSSW_13_0_14/src
 cmsenv
 echo "Done."
 
-# Downloading pileup file
-echo "==> Downloading pileup file..."
-curl -L "https://cernbox.cern.ch/s/R7jRdModLKddXht/download" -o "fileslist_Neutrino_E-10_gun.txt"
-echo "Done."
-
 # Create configuration
 #echo "==> Creating PREMIX (DIGI) configuration file..."
+pileupfile="dbs:/Neutrino_E-10_gun/Run3Summer21PrePremix-Summer23_130X_mcRun3_2023_realistic_v13-v1/PREMIX"
 cmsDriver.py  --eventcontent PREMIXRAW --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM-RAW --conditions 130X_mcRun3_2023_realistic_postBPix_v6 --step DIGI,DATAMIX,L1,DIGI2RAW,HLT:2023v12 --procModifiers premix_stage2 --geometry DB:Extended --datamix PreMix --era Run3_2023 --python_filename Run3Summer23BPixDRPremix-VBFHiggsToEMu_1_cfg.py --fileout file:Run3Summer23BPixDRPremix-VBFHiggsToEMu_0.root --filein file:../../CMSSW_13_0_17/src/Run3Summer23BPixwmLHEGS-VBFHiggsToEMu.root  --number $nevents --number_out $nevents --pileup_input $pileupfile --no_exec --mc
 #echo "Done."
 
 # Run production
 echo "==> Running PREMIX (DIGI) production..."
-#cmsRun ../../configs/Run3Summer23BPixDRPremix-VBFHiggsToEMu_1_cfg.py
+#cmsRun ../../configs/Hlfv_prod_Run3/Run3Summer23BPixDRPremix-VBFHiggsToEMu_1_cfg.py
 echo "Done."
 
 # Create configuration
@@ -94,7 +87,7 @@ cmsDriver.py  --eventcontent AODSIM --customise Configuration/DataProcessing/Uti
 
 # Run production
 echo "==> Running PREMIX (RECO) production..."
-#cmsRun ../../configs/Run3Summer23BPixDRPremix-VBFHiggsToEMu_2_cfg.py
+#cmsRun ../../configs/Hlfv_prod_Run3/Run3Summer23BPixDRPremix-VBFHiggsToEMu_2_cfg.py
 echo "Done."
 
 ###########################
@@ -108,7 +101,7 @@ cmsDriver.py  --eventcontent MINIAODSIM --customise Configuration/DataProcessing
 
 # Run production
 echo "==> Running MiniAOD production..."
-#cmsRun ../../configs/Run3Summer23BPixMiniAODv4-VBFHiggsToEMu_cfg.py
+#cmsRun ../../configs/Hlfv_prod_Run3/Run3Summer23BPixMiniAODv4-VBFHiggsToEMu_cfg.py
 echo "Done."
 
 ###########################
@@ -122,7 +115,7 @@ cmsDriver.py  --eventcontent NANOEDMAODSIM --customise Configuration/DataProcess
 
 # Run production
 echo "==> Running NanoAOD production..."
-#cmsRun ../../configs/Run3Summer23BPixNanoAODv12-VBFHiggsToEMu_cfg.py
+#cmsRun ../../configs/Hlfv_prod_Run3/Run3Summer23BPixNanoAODv12-VBFHiggsToEMu_cfg.py
 echo "Done."
 
 cd ../../
