@@ -38,7 +38,7 @@ echo "Done."
 
 # Create configuration
 echo "==> Creating LHEGS configuration file..."
-mkdir Configuration/GenProduction/python/
+mkdir -p Configuration/GenProduction/python/
 cp ../../Hlfv_prod_Run3/fragments/fragment-ggHiggsTauE.py Configuration/GenProduction/python/Run3Summer23BPixLHEGS-ggHiggsToTauE-fragment.py
 cmsDriver.py Configuration/GenProduction/python/Run3Summer23BPixLHEGS-ggHiggsToTauE-fragment.py --eventcontent RAWSIM,LHE --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM,LHE --conditions 130X_mcRun3_2023_realistic_postBPix_v2 --beamspot Realistic25ns13p6TeVEarly2023Collision --customise_commands process.RandomNumberGeneratorService.externalLHEProducer.initialSeed="12345" --step LHE,GEN,SIM --geometry DB:Extended --era Run3_2023 --python_filename Run3Summer23BPixwmLHEGS-ggHiggsToTauE_cfg.py --fileout file:Run3Summer23BPixwmLHEGS-ggHiggsToTauE.root --number $nevents --number_out $nevents --no_exec --mc
 echo "Done."

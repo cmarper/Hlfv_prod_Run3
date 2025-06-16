@@ -40,7 +40,7 @@ echo "Done."
 
 # Create configuration
 echo "==> Creating LHEGS configuration file..."
-mkdir Configuration/GenProduction/python/
+mkdir -p Configuration/GenProduction/python/
 cp ../../Hlfv_prod_Run3/fragments/fragment-ggHiggsEMu.py Configuration/GenProduction/python/Run3Summer22EELHEGS-ggHiggsToEMu-fragment.py
 cmsDriver.py Configuration/GenProduction/python/Run3Summer22EELHEGS-ggHiggsToEMu-fragment.py --eventcontent RAWSIM,LHE --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM,LHE --conditions 124X_mcRun3_2022_realistic_postEE_v1 --beamspot Realistic25ns13p6TeVEarly2022Collision --customise_commands process.RandomNumberGeneratorService.externalLHEProducer.initialSeed="12345" --step LHE,GEN,SIM --geometry DB:Extended --era Run3 --python_filename Run3Summer22EEwmLHEGS-ggHiggsToEMu_cfg.py --fileout file:Run3Summer22EEwmLHEGS-ggHiggsToEMu.root --number $nevents --number_out $nevents --no_exec --mc
 echo "Done."
