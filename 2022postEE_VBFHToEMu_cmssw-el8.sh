@@ -62,7 +62,7 @@ echo "Done."
 
 # Run production
 echo "==> Running PREMIX (DIGI) production..."
-cmsRun ../../../configs/ Run3Summer22EEDR-VBFHiggsToEMu_1_cfg.py
+cmsRun ../../../configs/Run3Summer22EEDR-VBFHiggsToEMu_1_cfg.py
 echo "Done."
 
 # Create configuration

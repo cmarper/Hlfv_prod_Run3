@@ -93,7 +93,7 @@ echo "Done."
 
 # Run production
 echo "==> Running MiniAOD production..."
-cmsRun ../../../configs/ Run3Summer23BPixMiniAODv4-ggHiggsToEMu_cfg.py
+cmsRun ../../../configs/Run3Summer23BPixMiniAODv4-ggHiggsToEMu_cfg.py
 echo "Done."
 
 ###########################

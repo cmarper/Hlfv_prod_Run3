@@ -108,7 +108,7 @@ echo "Done."
 
 # Run production
 echo "==> Running NanoAOD production..."
-cmsRun ../../../configs/ Run3Summer22EENanoAODv12-VBFHiggsToTauE_cfg.py
+cmsRun ../../../configs/Run3Summer22EENanoAODv12-VBFHiggsToTauE_cfg.py
 echo "Done."
 
 cd ../../
