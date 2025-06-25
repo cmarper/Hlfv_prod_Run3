@@ -55,8 +55,9 @@ echo "Done."
 
 # Create configuration
 echo "==> Creating PREMIX (DIGI) configuration file..."
-pileupfile="dbs:/Neutrino_E-10_gun/Run3Summer21PrePremix-Summer22_124X_mcRun3_2022_realistic_v11-v2/PREMIX"
+#pileupfile="dbs:/Neutrino_E-10_gun/Run3Summer21PrePremix-Summer22_124X_mcRun3_2022_realistic_v11-v2/PREMIX"
 #pileupfile="dbs:/MinBias_TuneCP5_13p6TeV-pythia8/Run3Summer22GS-124X_mcRun3_2022_realistic_v10-v1/GEN-SIM"
+pileupfile="filelist:../../../pileup/filelist_Run3Summer21PrePremix-Summer22_124X_mcRun3_2022_realistic_v11-v2.txt"
 cmsDriver.py  --eventcontent RAWSIM --pileup AVE_70_BX_25ns --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM-RAW --conditions 124X_mcRun3_2022_realistic_postEE_v1 --step DIGI,L1,DIGI2RAW,HLT:2022v14 --geometry DB:Extended --era Run3 --python_filename Run3Summer22EEDR-ggHiggsToEMu_1_cfg.py --fileout file:Run3Summer22EEDR-ggHiggsToEMu_0.root --filein file:Run3Summer22EEwmLHEGS-ggHiggsToEMu.root --number $nevents --number_out $nevents --pileup_input $pileupfile --no_exec --mc
 echo "Done."
 
