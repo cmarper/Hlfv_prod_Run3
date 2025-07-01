@@ -121,4 +121,3 @@ mkdir -p data/
 mv CMSSW_*/src/Run3Summer22EE*ggHiggsToTauE*.root data/
 cd ../
 echo "Done."
-

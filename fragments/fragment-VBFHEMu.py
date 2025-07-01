@@ -33,10 +33,10 @@ generator = cms.EDFilter("Pythia8ConcurrentHadronizerFilter",
           					    'TauDecays:tauPolarization = 0',
           					    'TauDecays:tauMother = 25',
           					    '25:m0 = 125.0',
-          					    '25:addChannel 1 0.1 100 15 -11',
-          					    '25:addChannel 1 0.1 100 11 -15',
+          					    '25:addChannel 1 0.1 100 11 -13',
+          					    '25:addChannel 1 0.1 100 13 -11',
           					    '25:onMode = off',
-          					    '25:onIfMatch 15 11'
+          					    '25:onIfMatch 11 13'
           					    ),
       					    parameterSets = cms.vstring(
                           		'pythia8PowhegEmissionVetoSettings',

@@ -119,4 +119,3 @@ mkdir -p data/
 mv CMSSW_*/src/Run3Summer23BPix*ggHiggsToTauMu*.root data/
 cd ../
 echo "Done."
-

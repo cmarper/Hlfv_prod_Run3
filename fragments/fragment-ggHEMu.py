@@ -1,7 +1,7 @@
 import FWCore.ParameterSet.Config as cms
 
 externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
-    args = cms.vstring('/cvmfs/cms.cern.ch/phys_generator/gridpacks/slc7_amd64_gcc700/13p6TeV/powheg/V2/VBF_H/VBF_H_slc7_amd64_gcc700_CMSSW_10_6_0_my_VBF_H.tgz'),
+    args = cms.vstring('/cvmfs/cms.cern.ch/phys_generator/gridpacks/slc7_amd64_gcc700/13p6TeV/powheg/V2/gg_H/gg_H_quark-mass-effects_slc7_amd64_gcc700_CMSSW_10_6_0_gg_H_quark-mass-effects.tgz'),
     nEvents = cms.untracked.uint32(5000),
     numberOfParameters = cms.uint32(1),
     outputFile = cms.string('cmsgrid_final.lhe'),
@@ -28,15 +28,15 @@ generator = cms.EDFilter("Pythia8ConcurrentHadronizerFilter",
 					        pythia8PowhegEmissionVetoSettingsBlock, 
                             pythia8PSweightsSettingsBlock,
       					    processParameters = cms.vstring(
-                                'POWHEG:nFinal = 3',                            
+                                'POWHEG:nFinal = 1',                            
           					    'TauDecays:mode = 2',
           					    'TauDecays:tauPolarization = 0',
           					    'TauDecays:tauMother = 25',
           					    '25:m0 = 125.0',
-          					    '25:addChannel 1 0.1 100 15 -11',
-          					    '25:addChannel 1 0.1 100 11 -15',
+          					    '25:addChannel 1 0.1 100 11 -13',
+          					    '25:addChannel 1 0.1 100 13 -11',
           					    '25:onMode = off',
-          					    '25:onIfMatch 15 11'
+          					    '25:onIfMatch 11 13'
           					    ),
       					    parameterSets = cms.vstring(
                           		'pythia8PowhegEmissionVetoSettings',
