@@ -24,7 +24,7 @@ echo "==> Setting up CMSSW_13_0_13..."
 cmsrel CMSSW_13_0_13
 cd CMSSW_13_0_13/src
 mkdir -p Configuration/GenProduction/python/
-cp ../../../fragments/fragment-ggHTauE.py Configuration/GenProduction/python/Run3Summer23BPixLHEGS-ggHiggsToTauE-fragment.py
+cp ../../../fragments/fragment-ggHTauE_v2.py Configuration/GenProduction/python/Run3Summer23BPixLHEGS-ggHiggsToTauE-fragment.py
 cmsenv
 echo "Done."
 
